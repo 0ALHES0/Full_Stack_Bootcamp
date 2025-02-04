@@ -1,0 +1,183 @@
+﻿@model IEnumerable<Film>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- CSS -->
+<style>
+    /* Genel Stiller */
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+    }
+
+    /* Tablo Tasarımı */
+    .table-container {
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+        overflow: hidden;
+        margin: 2rem 0;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+    }
+
+    .table th,
+    .table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid #f0f0f0;
+        text-align: left;
+    }
+
+    .table th {
+        background: #6c757d;
+        color: #fff;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.85em;
+        letter-spacing: 0.5px;
+    }
+
+    .table tbody tr {
+        transition: all 0.2s ease;
+    }
+
+    .table tbody tr:hover {
+        background: #f8f9fa;
+        transform: translateX(4px);
+    }
+
+    /* Butonlar */
+    .btn {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 500;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #6366f1, #4f46e5);
+        color: white;
+    }
+
+    .btn-danger {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+        color: white;
+    }
+
+    /* Responsive Tasarım */
+    @@media (max-width: 768px) {
+        .table-container {
+            border-radius: 0;
+            box-shadow: none;
+        }
+        
+        .table thead {
+            display: none;
+        }
+        
+        .table td {
+            display: block;
+            text-align: right;
+            padding: 12px;
+            border-bottom: none;
+        }
+        
+        .table td::before {
+            content: attr(data-label);
+            float: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #6c757d;
+        }
+        
+        .table td:last-child {
+            border-bottom: 1px solid #f0f0f0;
+        }
+    }
+
+    /* Arama Kutusu */
+    .search-box {
+        margin-bottom: 1.5rem;
+        max-width: 400px;
+    }
+</style>
+
+<!-- HTML -->
+<div class="container">
+    <h1 class="mb-4">🎬 Film Kütüphanesi</h1>
+    
+    <!-- Arama ve Filtreleme -->
+    <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Film ara..." class="form-control">
+    </div>
+
+    <!-- Tablo -->
+    <div class="table-container">
+        <table class="table" role="grid" aria-label="Film Listesi">
+            <thead>
+                <tr>
+                    <th data-column="id">ID</th>
+                    <th data-column="image">Poster</th>
+                    <th data-column="name">Film Adı</th>
+                    <th data-column="director">Yönetmen</th>
+                    <th data-column="year">Yıl</th>
+                    <th data-column="actions">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var film in Model)
+                {
+                    <tr data-id="@film.MoviesId">
+                        <td data-label="ID">@film.MoviesId</td>
+                        <td data-label="Poster">
+                            <img src="~/img/@film.Image" alt="@film.Name" class="img-fluid" style="max-width: 80px;">
+                        </td>
+                        <td data-label="Film Adı">@film.Name</td>
+                        <td data-label="Yönetmen">@film.Director</td>
+                        <td data-label="Yıl">@film.ReleaseYear</td>
+                        <td data-label="İşlemler">
+                            <a asp-action="Edit" asp-route-id="@film.MoviesId" class="btn btn-primary">✏️ Düzenle</a>
+                            <a asp-action="Delete" asp-route-id="@film.MoviesId" class="btn btn-danger">🗑️ Sil</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+    // Arama Fonksiyonu
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        document.querySelectorAll('tbody tr').forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(searchTerm) ? '' : 'none';
+        });
+    });
+
+    // Sıralama Fonksiyonu
+    document.querySelectorAll('th[data-column]').forEach(header => {
+        header.style.cursor = 'pointer';
+        header.addEventListener('click', () => {
+            const column = header.getAttribute('data-column');
+            const rows = Array.from(document.querySelectorAll('tbody tr'));
+            rows.sort((a, b) => {
+                const aVal = a.querySelector(`[data-label="${header.textContent}"]`).textContent;
+                const bVal = b.querySelector(`[data-label="${header.textContent}"]`).textContent;
+                return aVal.localeCompare(bVal);
+            });
+            document.querySelector('tbody').append(...rows);
+        });
+    });
+</script>

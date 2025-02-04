@@ -1,0 +1,56 @@
+@model Film
+
+@{
+    ViewData["Title"] = "Yeni Film Ekle";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-controller="Home" asp-action="Create" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Name" class="form-label">Film Adı</label>
+        <input type="text" asp-for="Name" class="form-control">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="image-group mb-3">
+        <label for="imageFile" class="form-label">Film Resmi</label>
+        <input type="file" name="imageFile" id="imageFile" class="form-control">
+        <span asp-validation-for="Image" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Kategori Id Giriniz</label>
+        <input type="text" asp-for="CategoryId" class="form-control">
+        <span asp-validation-for="CategoryId" class="text-danger"></span>
+    </div>
+  <!--
+<div class="mb-3">
+    <label asp-for="CategoryId" class="form-label">Kategori</label>
+    <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
+        <option value="">Kategori Seçin</option>
+    </select>
+    <span asp-validation-for="CategoryId" class="text-danger"></span>
+</div>
+-->
+    
+    <div class="mb-3">
+        <label asp-for="Director" class="form-label">Yönetmeni Giriniz</label>
+        <input type="text" asp-for="Director" class="form-control">
+        <span asp-validation-for="Director" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="ReleaseYear" class="form-label">Çıkış Yılını Giriniz</label>
+        <input type="text" asp-for="ReleaseYear" class="form-control">
+        <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+    </div>
+
+
+    <button type="submit" class="btn btn-primary">Kaydet</button>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
