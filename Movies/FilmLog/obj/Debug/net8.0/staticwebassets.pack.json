@@ -45,8 +45,16 @@
       "PackagePath": "staticwebassets\\img\\2.png"
     },
     {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\20f982a1-319e-4830-99c0-b4f1e4fba7c7.png",
+      "PackagePath": "staticwebassets\\img\\20f982a1-319e-4830-99c0-b4f1e4fba7c7.png"
+    },
+    {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\29352e96-edd6-48dc-9bbb-dd8d058dde12.jpg",
       "PackagePath": "staticwebassets\\img\\29352e96-edd6-48dc-9bbb-dd8d058dde12.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\2af4a88b-d988-4f3a-a95c-988d8d4ea9dd.png",
+      "PackagePath": "staticwebassets\\img\\2af4a88b-d988-4f3a-a95c-988d8d4ea9dd.png"
     },
     {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\2d12f6d4-f317-4b7b-a925-0948242dc0ab.jpg",
@@ -97,6 +105,10 @@
       "PackagePath": "staticwebassets\\img\\634b9655-ef35-4108-8bc3-d0c8975eed30.jpg"
     },
     {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\646b22f6-dcb4-459f-a08e-83933e60c3c1.png",
+      "PackagePath": "staticwebassets\\img\\646b22f6-dcb4-459f-a08e-83933e60c3c1.png"
+    },
+    {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\65857db5-e1bb-4394-ad2a-1d4a7b005e9a.jpg",
       "PackagePath": "staticwebassets\\img\\65857db5-e1bb-4394-ad2a-1d4a7b005e9a.jpg"
     },
@@ -111,6 +123,14 @@
     {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\6acb2b15-8dc1-44be-994b-e821d8081fb5.jpg",
       "PackagePath": "staticwebassets\\img\\6acb2b15-8dc1-44be-994b-e821d8081fb5.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\6ba5aca8-caf8-449a-8ac1-ca9ad4a4cd6c.png",
+      "PackagePath": "staticwebassets\\img\\6ba5aca8-caf8-449a-8ac1-ca9ad4a4cd6c.png"
+    },
+    {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\6da68ee1-ef03-4fee-8a09-9153c398c9d1.jpg",
+      "PackagePath": "staticwebassets\\img\\6da68ee1-ef03-4fee-8a09-9153c398c9d1.jpg"
     },
     {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\6e654e30-22a7-4cd7-9f8d-c57be59239e4.png",
@@ -199,6 +219,10 @@
     {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\e9da146b-c0ef-4302-891c-f2c8b063ab1a.jpg",
       "PackagePath": "staticwebassets\\img\\e9da146b-c0ef-4302-891c-f2c8b063ab1a.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\img\\ebdbceb5-b706-4641-84e2-f8e61d151f93.png",
+      "PackagePath": "staticwebassets\\img\\ebdbceb5-b706-4641-84e2-f8e61d151f93.png"
     },
     {
       "Id": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\wwwroot\\js\\site.js",
