@@ -1,50 +1,59 @@
 @model Film
 
 <form asp-controller="Home" asp-action="Edit" method="post" enctype="multipart/form-data">
+    <!-- Tüm doğrulama hatalarını göstermek için kullanılan alan -->
     <div asp-validation-summary="All"></div>
     
-    <!-- Hidden Field for MoviesId -->
+    <!-- Filmin ID bilgisini gizli bir alanda tutmak için kullanılır -->
     <input type="hidden" asp-for="MoviesId">
 
+    <!-- Film adı için giriş alanı -->
     <div class="mb-3">
         <label asp-for="Name" class="form-label">Film Adı</label>
         <input type="text" asp-for="Name" class="form-control">
+        <!-- Film adı için doğrulama hatası mesajı -->
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     
+    <!-- Film resmi için dosya yükleme alanı -->
     <div class="image-group mb-3">
         <label for="imageFile" class="form-label">Film Resmi</label>
         <input type="file" name="imageFile" id="imageFile" class="form-control">    
     </div>
     
-    <!-- Display Existing Image -->
+    <!-- Mevcut film resmini gösterme alanı -->
     <div>
         <img src="~/img/@Model.Image" alt="" style="width: 100px;">
-        <!-- Hidden field to retain old image value in case a new one isn't uploaded -->
+        <!-- Eğer yeni bir resim yüklenmezse eski resmi korumak için gizli alan -->
         <input type="hidden" asp-for="Image" value="@Model.Image">
     </div>
 
-    
+    <!-- Film kategorisini seçmek için dropdown (seçim kutusu) -->
     <div class="mb-3">
         <label asp-for="CategoryId" class="form-label">Kategori</label>
         <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
             <option value="">Kategori Seçin</option>
         </select>
+        <!-- Kategori için doğrulama hatası mesajı -->
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
-
+    <!-- Film yönetmeni için giriş alanı -->
     <div class="mb-3">
         <label asp-for="Director" class="form-label">Yönetmen</label>
         <input type="text" asp-for="Director" class="form-control">
+        <!-- Yönetmen için doğrulama hatası mesajı -->
         <span asp-validation-for="Director" class="text-danger"></span>
     </div>
 
+    <!-- Film çıkış yılı için giriş alanı -->
     <div class="mb-3">
         <label asp-for="ReleaseYear" class="form-label">Çıkış Yılı</label>
         <input type="text" asp-for="ReleaseYear" class="form-control">
+        <!-- Çıkış yılı için doğrulama hatası mesajı -->
         <span asp-validation-for="ReleaseYear" class="text-danger"></span>
     </div>
 
+    <!-- Formu gönderme butonu -->
     <button type="submit" class="btn btn-primary">Kaydet</button>
 </form>
