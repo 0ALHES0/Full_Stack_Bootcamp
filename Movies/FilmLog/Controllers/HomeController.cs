@@ -2,16 +2,17 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using FilmLog.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using FilmLog.Data; // Eklenen DataContext için
+using FilmLog.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace FilmLog.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly DataContext _context; // EF Core DbContext eklendi
+    private readonly DataContext _context;
 
-    public HomeController(DataContext context) // Dependency Injection
+    // Constructor: Bağımlılık enjeksiyonu ile DataContext alınır
+    public HomeController(DataContext context)
     {
         _context = context;
     }
@@ -19,14 +20,17 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Index(string searchString, string category)
     {
-        var films = await _context.Films.ToListAsync(); // Veritabanından çekildi
-        
+        // Veritabanından tüm filmleri getirir
+        var films = await _context.Films.ToListAsync();
+
+        // Arama metni varsa, filmleri filtreler
         if (!string.IsNullOrEmpty(searchString))
         {
             ViewBag.SearchString = searchString;
-            films = films.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
+            films = films.Where(p => p.Name.ToLower().Contains(searchString.ToLower())).ToList();
         }
 
+        // Kategori seçildiyse, filmleri filtreler
         if (!string.IsNullOrEmpty(category) && category != "0")
         {
             films = films.Where(p => p.CategoryId == int.Parse(category)).ToList();
@@ -38,6 +42,7 @@ public class HomeController : Controller
     [HttpGet]
     public async Task<IActionResult> Create()
     {
+        // Kategori listesini ViewBag ile View'e gönderir
         ViewBag.Categories = new SelectList(await _context.Categories.ToListAsync(), "CategoryId", "Name");
         return View();
     }
@@ -45,63 +50,58 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Film model, IFormFile imageFile)
     {
-        var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
-        
-        if (imageFile != null)
+        // Resim dosyası seçilmemişse hata ekler
+        if (imageFile == null)
         {
+            ModelState.AddModelError("", "Bir resim dosyası seçiniz.");
+        }
+        else
+        {
+            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
             var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
+            // Geçerli bir dosya uzantısı değilse hata ekler
             if (!allowedExtensions.Contains(extension))
             {
                 ModelState.AddModelError("", "Geçerli bir resim seçiniz.");
             }
             else
             {
+                // Rastgele dosya adı oluşturup resmi kaydeder
                 var randomFileName = $"{Guid.NewGuid()}{extension}";
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
 
-                try
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(stream);
-                    }
-                    model.Image = randomFileName;
+                    await imageFile.CopyToAsync(stream);
                 }
-                catch
-                {
-                    ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu.");
-                }
+                model.Image = randomFileName;
             }
         }
-        else
-        {
-            ModelState.AddModelError("", "Bir resim dosyası seçiniz.");
-        }
 
+        // Model geçerliyse filmi veritabanına ekler ve kaydeder
         if (ModelState.IsValid)
         {
-            await _context.Films.AddAsync(model); // Veritabanına ekleme
-            await _context.SaveChangesAsync(); // Değişiklikleri kaydet
+            await _context.Films.AddAsync(model);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
+        // Form tekrar yüklendiğinde kategori listesini ViewBag ile gönderir
         ViewBag.Categories = new SelectList(await _context.Categories.ToListAsync(), "CategoryId", "Name");
         return View(model);
     }
 
+    [HttpGet]
     public async Task<IActionResult> Edit(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
+        if (id == null) return NotFound();
 
-        var entity = await _context.Films.FindAsync(id); // Veritabanından film çekildi
-        if (entity == null)
-        {
-            return NotFound();
-        }
+        // ID'ye göre filmi veritabanından bulur
+        var entity = await _context.Films.FindAsync(id);
+        if (entity == null) return NotFound();
 
+        // Kategori listesini ViewBag ile View'e gönderir
         ViewBag.Categories = new SelectList(await _context.Categories.ToListAsync(), "CategoryId", "Name");
         return View(entity);
     }
@@ -109,21 +109,18 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, Film model, IFormFile? imageFile)
     {
-        if (id != model.MoviesId)
-        {
-            return NotFound();
-        }
+        if (id != model.MoviesId) return NotFound();
 
+        // ID'ye göre filmi veritabanından bulur
         var entity = await _context.Films.FindAsync(id);
-        if (entity == null)
-        {
-            return NotFound();
-        }
+        if (entity == null) return NotFound();
 
-        var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
+        // Yeni bir resim seçildiyse işlemi gerçekleştirir
         if (imageFile != null)
         {
+            var allowedExtensions = new[] { ".jpg", ".png", ".jpeg" };
             var extension = Path.GetExtension(imageFile.FileName).ToLowerInvariant();
+
             if (!allowedExtensions.Contains(extension))
             {
                 ModelState.AddModelError("", "Geçerli bir resim seçiniz.");
@@ -133,30 +130,21 @@ public class HomeController : Controller
                 var randomFileName = $"{Guid.NewGuid()}{extension}";
                 var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
 
-                try
+                using (var stream = new FileStream(path, FileMode.Create))
                 {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        await imageFile.CopyToAsync(stream);
-                    }
-                    entity.Image = randomFileName;
+                    await imageFile.CopyToAsync(stream);
                 }
-                catch
-                {
-                    ModelState.AddModelError("", "Dosya yüklenirken bir hata oluştu.");
-                }
+                entity.Image = randomFileName;
             }
         }
 
+        // Model geçerliyse güncellemeyi kaydeder
         if (ModelState.IsValid)
         {
             entity.Name = model.Name;
             entity.CategoryId = model.CategoryId;
-     
-
             _context.Films.Update(entity);
             await _context.SaveChangesAsync();
-
             return RedirectToAction("Index");
         }
 
@@ -166,20 +154,14 @@ public class HomeController : Controller
 
     public async Task<IActionResult> Delete(int? id)
     {
-        if (id == null)
-        {
-            return NotFound();
-        }
+        if (id == null) return NotFound();
 
+        // ID'ye göre filmi bulur ve siler
         var entity = await _context.Films.FindAsync(id);
-        if (entity == null)
-        {
-            return NotFound();
-        }
+        if (entity == null) return NotFound();
 
         _context.Films.Remove(entity);
         await _context.SaveChangesAsync();
-
         return RedirectToAction("Index");
     }
 }

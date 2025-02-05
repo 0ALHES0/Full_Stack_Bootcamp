@@ -2531,11 +2531,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Alhes\\Desktop\\.net_beginner_project\\Movies\\FilmLog\\FilmLog.csproj",
+      "projectUniqueName": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\FilmLog.csproj",
       "projectName": "FilmLog",
-      "projectPath": "C:\\Users\\Alhes\\Desktop\\.net_beginner_project\\Movies\\FilmLog\\FilmLog.csproj",
+      "projectPath": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\FilmLog.csproj",
       "packagesPath": "C:\\Users\\Alhes\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Alhes\\Desktop\\.net_beginner_project\\Movies\\FilmLog\\obj\\",
+      "outputPath": "C:\\Users\\Alhes\\Documents\\GitHub\\Full_Stack_Bootcamp\\Movies\\FilmLog\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Alhes\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -26,6 +26,7 @@ namespace FilmLog.Models{
         public string? Director { get; set; }
 
         [Display(Name="Çıkış Yılı")]
+        [Required(ErrorMessage ="Çıkış yılını giriniz")]
         public int ReleaseYear { get; set; }
 
     }

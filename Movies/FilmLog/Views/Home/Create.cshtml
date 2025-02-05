@@ -20,13 +20,14 @@
         <input type="file" name="imageFile" id="imageFile" class="form-control">
         <span asp-validation-for="Image" class="text-danger"></span>
     </div>
-
+<!--
     <div class="mb-3">
         <label asp-for="CategoryId" class="form-label">Kategori Id Giriniz</label>
         <input type="text" asp-for="CategoryId" class="form-control">
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
-  <!--
+    -->
+
 <div class="mb-3">
     <label asp-for="CategoryId" class="form-label">Kategori</label>
     <select asp-for="CategoryId" asp-items="ViewBag.Categories" class="form-select">
@@ -34,7 +35,7 @@
     </select>
     <span asp-validation-for="CategoryId" class="text-danger"></span>
 </div>
--->
+
     
     <div class="mb-3">
         <label asp-for="Director" class="form-label">Yönetmeni Giriniz</label>
