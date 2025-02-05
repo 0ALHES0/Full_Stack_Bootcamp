@@ -5,6 +5,8 @@ using FilmLog.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
+builder.Services.AddRazorPages();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
